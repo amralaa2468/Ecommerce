@@ -1,0 +1,27 @@
+.new-header-layout {
+  width: calc(100% - 630px);
+  min-height: 100vh;
+  position: fixed;
+}
+
+.new-header-local {
+  display: flex;
+  width: 41.451px;
+  height: 41.451px;
+  border-radius: 41.451px;
+  cursor: pointer;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  color: #000;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20.7px;
+}
+@media only screen and (max-width: 960px) {
+  .new-header-layout {
+    display: none;
+  }
+}

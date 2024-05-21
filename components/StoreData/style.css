@@ -1,0 +1,57 @@
+.ayoub-loader {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+}
+
+.ayoub-loader .loader,
+.ayoub-loader .loader::before,
+.ayoub-loader .loader::after {
+  border-radius: 50%;
+}
+.ayoub-loader .loader {
+  width: var(--loader-size);
+  height: var(--loader-size);
+  background-color: var(--first-color);
+  position: relative;
+}
+
+.ayoub-loader .loader::before,
+.ayoub-loader .loader::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-width: var(--border-width);
+  border-style: solid;
+  animation: rotate 2.3s linear infinite;
+}
+.ayoub-loader .loader::before {
+  z-index: 3;
+  width: var(--loader-size);
+  height: var(--loader-size);
+  border-color: var(--first-color) transparent;
+}
+.ayoub-loader .loader::after {
+  z-index: 4;
+  width: calc(var(--loader-size) + var(--border-width) * 2);
+  height: calc(var(--loader-size) + var(--border-width) * 2);
+  border-color: transparent var(--first-color);
+  animation-direction: reverse;
+}
+
+@keyframes rotate {
+  to {
+    transform: translate(-50.5%, -49.5%) rotate(360deg);
+  }
+}

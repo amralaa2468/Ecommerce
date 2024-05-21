@@ -1,0 +1,9 @@
+.highlight-width-edit {
+  width: 630px;
+}
+
+@media only screen and (max-width: 960px) {
+  .highlight-width-edit {
+    width: 100%;
+  }
+}
