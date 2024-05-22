@@ -374,7 +374,7 @@ const NewCart = () => {
 										</p>
 										<div className="flex flex-wrap mt-1 gap-1.5">
 											{item?.variantsDetails?.map((variant, index) => (
-												<p className="cart-name">
+												<p className="cart-name" key={index}>
 													{t("local") === "ar" ? variant?.nameInArabic : variant?.name}{" "}
 													{item?.variantsDetails?.length - 1 !== index && " - "}
 												</p>
@@ -382,7 +382,7 @@ const NewCart = () => {
 										</div>
 									</div>
 								</div>
-								<div className="flex flex-col items-center justify-around mt-2.5">
+								<div className="flex flex-col items-center justify-around mt-2.5 gap-2">
 									<p className="cart-price">
 										{t("KD")} {Math.floor(item?.priceAfterDiscount * 1000) / 1000}
 									</p>

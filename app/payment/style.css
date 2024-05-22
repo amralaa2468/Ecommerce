@@ -175,7 +175,6 @@
 .address-form {
 	width: 90%;
 	max-width: 350px;
-	height: 70px;
 	flex-shrink: 0;
 	border-radius: 9px;
 	border: 1px solid var(--C4C4C4, #c4c4c4);
@@ -192,6 +191,7 @@
 	font-style: normal;
 	font-weight: 700;
 	line-height: 117.489%; /* 16.448px */
+	margin-bottom: 12px;
 }
 
 .address-form-text {

@@ -116,6 +116,9 @@ export const viewCart = gql`
         houseNo
         postalCode
         type
+        cityInArabic
+        countryInArabic
+        stateInArabic
       }
       list {
         variantsDetails {

@@ -25,6 +25,7 @@ import {
 } from "@/app/my-cart/my-cart.container";
 import { useRouter } from "next/navigation";
 import { updateCartList } from "@/redux/reducers/storeReducer";
+import { getStorePickupLocationsApi } from '@/app/new-delivery/new-delivery.container';
 
 const calculateTotal = (cartList: any) => {
   const totalPrice = cartList.reduce((total: any, product: any) => {
@@ -69,12 +70,28 @@ const Theme1 = () => {
   };
   const [totalPrice, setTotalPrice] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [locationList, setLocationList] = useState<any[]>([]);
 
   useEffect(() => {
     const { totalPrice } = calculateTotal(cartList);
 
     setTotalPrice(totalPrice);
   }, [cartList]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const locations = await getStorePickupLocationsApi(
+          localStorage.getItem("StoreId") ?? ""
+        );
+        if (locations) {
+          setLocationList(locations);
+        }
+      } catch (err) {
+        console.error("Error fetching pickup locations:", err);
+      }
+    })();
+  }, []);
 
   const handleAdd = async (id: string, e: any, count: number) => {
     e.preventDefault();
@@ -237,7 +254,7 @@ const Theme1 = () => {
                       alt="url empty"
                       style={{
                         height: 394,
-                        objectFit: "cover",
+                        objectFit: "fill",
                         width: "100%",
                       }}
                     />
@@ -247,7 +264,7 @@ const Theme1 = () => {
                       alt="hello lets see"
                       style={{
                         height: 394,
-                        objectFit: "cover",
+                        objectFit: "fill",
                         width: "100%",
                       }}
                     />
@@ -318,11 +335,13 @@ const Theme1 = () => {
             {t("Delivery")}
           </Link>
           <Link
-            href={"/new-delivery?tab=pickup"}
+            href={locationList?.length === 0 ? "" :"/new-delivery?tab=pickup"}
             className="new-theme-delivery"
             style={{
-              border: `1px solid ${primaryThemeColourCode}`,
-              color: primaryThemeColourCode,
+              border: locationList?.length === 0 ? '1px solid #ccc' : `1px solid ${primaryThemeColourCode}`,
+              color: locationList?.length === 0 ? '#ccc' : primaryThemeColourCode,
+              cursor: locationList?.length === 0 ? 'not-allowed' : 'pointer',
+              opacity: locationList?.length === 0 ? 0.5 : 1,
             }}
           >
             {t("Pickup")}
@@ -612,19 +631,33 @@ const Theme1 = () => {
 
       {themeLayout === "layout" && (
         <div className="padding-50">
-          <div className="scrollbar-hide flex items-center justify-center gap-[9px] overflow-scroll mb-[31px]">
+          <div
+            style={{
+              minWidth: '100%', 
+              display: "flex",
+              alignItems: "start",
+              justifyContent: categories?.length < 4 ? "center" : "start",
+              gap: 20,
+              overflowX: "auto",
+              marginBottom: 31,
+              padding: '0px 10px 0px 10px'
+            }}
+            className="scrollbar-hide"
+          >
             {categories?.map((category: any) => (
+              <div 
+              key={category._id}>
               <Link
                 href={`/new-category/${category._id}?name=${category.name}`}
-                key={category._id}
                 style={{
+                  width: "115px",
                   display: "flex",
                   flexDirection: "column",
                   gap: 10,
                   alignItems: "center",
                   textDecoration: "none",
                 }}
-              >
+                >
                 <img
                   alt="category"
                   src={
@@ -633,13 +666,14 @@ const Theme1 = () => {
                         ? category?.products[0]?.image[0]?.url
                         : bgImg
                       : category.image
-                  }
-                  style={{ width: 113, height: 113, borderRadius: 113 }}
-                />
+                    }
+                    style={{ width: 113, height: 113, borderRadius: 113, objectFit: 'fill' }}
+                    />
                 <p className="third-layout-cat-name">
                   {t("local") === "ar" ? category.nameInArabic : category.name}
                 </p>
               </Link>
+                    </div>
             ))}
           </div>
 
@@ -671,9 +705,9 @@ const Theme1 = () => {
                           alt="product"
                           src={product?.image[0]?.url}
                           style={{
-                            objectFit: "cover",
+                            objectFit: "fill",
+                            height: '166px',
                             width: "100%",
-                            height: 105.689,
                             margin: "0px 23.88px",
                             marginBottom: "12.66px",
                             borderRadius: "10px 10px 0px 0px",
@@ -723,7 +757,7 @@ const Theme1 = () => {
                             alignItems: "center",
                             justifyContent: "space-between",
                             gap: 19,
-                            marginTop: "15px",
+                            marginTop: "10px",
                           }}
                         >
                           {cartList?.some(

@@ -37,6 +37,7 @@ const NewProductPage = () => {
 
   const [product, setProduct] = useState<any>();
   const [selectOptPrice, setSelectOptPrice] = useState<any>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [quantity, setQuantity] = useState(1);
   const [selectOpt, setSelectOpt] = useState<any>([]);
   const [selectedOptionName, setSelectedOptionName] = useState<any>([]);
@@ -298,6 +299,19 @@ const NewProductPage = () => {
     }
   };
 
+  const showNextImage = () => {
+		setCurrentImageIndex((prevIndex) =>
+			prevIndex === product?.image.length - 1 ? 0 : prevIndex + 1
+		);
+	};
+
+	// Function to handle displaying the previous image
+	const showPreviousImage = () => {
+		setCurrentImageIndex((prevIndex) =>
+			prevIndex === 0 ? product?.image.length - 1 : prevIndex - 1
+		);
+	};
+
   const handleCopyToClipboard = () => {
     const currentUrl = window.location.href;
 
@@ -332,16 +346,50 @@ const NewProductPage = () => {
         <div></div>
       </div>
       {product?.image && (
-        <img
-          src={product?.image[0]?.url}
-          alt="product"
-          style={{
-            width: "100%",
-            height: 355.756,
-            borderRadius: 5,
-            objectFit: "fill",
-          }}
-        />
+        <div style={{ position: 'relative' }}>
+          <img
+            src={product?.image[currentImageIndex]?.url}
+            alt='product'
+            style={{
+              width: '100%',
+              objectFit: 'fill',
+            }}
+          />
+        {product?.image?.length > 1 && (
+          <div>
+            <button
+              style={{
+                position: 'absolute',
+                bottom: '50%',
+                left: '0',
+                borderRadius: '50%',
+                backgroundColor: 'rgba(255, 255, 255, 0)',
+                padding: '10px',
+                border: 'none',
+                outline: 'none',
+              }}
+              onClick={showPreviousImage}>
+              <BackSvg />
+            </button>
+            {/* Button to display the next image */}
+            <button
+              style={{
+                position: 'absolute',
+                bottom: '50%',
+                right: '0',
+                borderRadius: '50%',
+                backgroundColor: 'rgba(255, 255, 255, 0)',
+                padding: '10px',
+                border: 'none',
+                outline: 'none',
+                transform: 'rotate(180deg)',
+              }}
+              onClick={showNextImage}>
+              <BackSvg />
+            </button>
+          </div>
+      )}
+      </div>
       )}
 
       <div className="product-container">
@@ -574,7 +622,7 @@ const NewProductPage = () => {
             fill="#52565E"
           />
         </svg>
-        <p style={{ color: "black", marginTop: "12px", cursor: "pointer" }}>
+        <p style={{ color: "black", cursor: "pointer" }}>
           {isCopied ? t("Link Copied!") : t("Share with a friend")}
         </p>
       </div>

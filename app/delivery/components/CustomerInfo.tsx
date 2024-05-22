@@ -33,7 +33,9 @@ export const CustomerInfo: React.FC<CustomerInfoProps> = ({
 	const [isError, setIsError] = useState(false);
 
 	useEffect(() => {
-		setData(cartData?.customerDetails);
+		if (cartData?.customerDetails) {
+			setData(cartData.customerDetails);
+		}
 	}, [cartData]);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

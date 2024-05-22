@@ -273,7 +273,14 @@ export const AddDeliveryAddress: React.FC<AddDeliveryAddressProps> = ({
 				<select
 					className="address-form"
 					onChange={handleCities}>
-					<option value="">{t("Government")}</option>
+					{details?.addressDetails.city !== null ||
+					details?.addressDetails.city !== '' ? (
+						<option value={details?.addressDetails.city}>
+							{t('local') === 'ar' ? details?.addressDetails.cityInArabic : details?.addressDetails.city}
+						</option>
+					) : (
+						<option value=''>{t('Government')}</option>
+					)}
 					{cityList?.map(
 						(city: { _id: string; nameInArabic: string; name: string }) => (
 							<option
@@ -289,7 +296,14 @@ export const AddDeliveryAddress: React.FC<AddDeliveryAddressProps> = ({
 					className="address-form"
 					name="stateId"
 					onChange={handleSelectChange}>
-					<option>{t("City")}</option>
+					{details?.addressDetails.state !== null ||
+					details?.addressDetails.state !== '' ? (
+						<option value={details?.addressDetails.state}>
+							{t('local') === 'ar' ? details?.addressDetails.stateInArabic : details?.addressDetails.state}
+						</option>
+					) : (
+						<option>{t('City')}</option>
+					)}
 					{stateList?.map(
 						(state: { _id: string; nameInArabic: string; name: string }) => (
 							<option

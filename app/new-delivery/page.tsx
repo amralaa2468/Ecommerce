@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useTranslation } from 'react-i18next';
 
 import { useDelivery } from './new-delivery.hooks';
-import { getStateIdToLocationIdApi } from './new-delivery.container';
+import { deliveryAddressApi, getStateIdToLocationIdApi, viewCartApi } from './new-delivery.container';
 
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
@@ -19,21 +19,79 @@ import {
 } from '@/public/assets/svgs/deliverySvg';
 import './style.css';
 
+interface Address {
+  _id: string;
+  stateId: string;
+  cityId: string;
+  countryId: string;
+  type: 'home';
+  block: string;
+  street: string;
+  avenue: string;
+  houseNo: string;
+  apartmentNo: string;
+  floorNo: string;
+  officeNo: string;
+  specialDirection: string;
+	postalCode: string;
+	longitude: string;
+	latitude: string;
+}
+
+
 const NewDelivery = () => {
-	const { locationList, cityList } = useDelivery();
 	const router = useRouter();
 	const params = useSearchParams();
 	const { t } = useTranslation();
-	const { primaryThemeColourCode, secondrythemeColourCode } = useSelector(
+	const { _id, primaryThemeColourCode, secondrythemeColourCode } = useSelector(
 		(state: RootState) => state.StoreReducer.customerDetails
 	);
 	const tab = params.get('tab');
+
+	const { locationList, cityList,countryId } = useDelivery();
 	const [active, setActive] = useState(tab);
 	const [searchInput, setSearchInput] = useState('');
 	const [errorMsg, setErrorMsg] = useState('');
 	const [addressError, setAddressError] = useState('');
 	const [isAddressError, setIsAddressError] = useState(false);
 	const [isError, setIsError] = useState(false);
+	const [cityId, setCityId] = useState("");
+	const [data, setData] = useState<Address>({
+		_id: '',
+		stateId: '',
+		cityId: '',
+		countryId: '',
+		type: 'home',
+		block: '',
+		street: '',
+		avenue: '',
+		houseNo: '',
+		apartmentNo: '',
+		floorNo: '',
+		officeNo: '',
+		specialDirection: '',
+		postalCode: '',
+		longitude: '',
+		latitude: '',
+	});
+
+	const getAddress = async () => {
+		try {
+			const addressRes = await viewCartApi(_id ?? "", global?.localStorage?.getItem("StoreId") ?? "");
+			if(addressRes.addressDetails){
+				setData(addressRes.addressDetails);
+			}
+		} catch (error) {
+			console.log('error getting address');
+		}
+	}
+
+	useEffect(() => {
+		if(_id){
+			getAddress();
+		}
+	}, [_id]);
+
 
 	const filteredData = cityList.filter((item) =>
 		t('local') === 'ar'
@@ -54,6 +112,7 @@ const NewDelivery = () => {
 				id
 			);
 			if (res) {
+				handleSubmit(id);
 				global?.localStorage?.setItem('locationId', res);
 				global?.localStorage?.setItem('orderType', 'normal');
 				router.push('/');
@@ -61,9 +120,34 @@ const NewDelivery = () => {
 		} catch (e) {
 			setIsAddressError(true);
 			setAddressError(t("We don't cover this area."));
-			console.log('Error happened selecting country: ', e);
 		}
 	};
+
+	const handleSubmit = async (stateId: string) => {
+		const customerid = _id;
+		try {
+			await deliveryAddressApi(
+				customerid ?? "",
+				stateId ?? "",
+				cityId ?? "",
+				countryId ?? "",
+				data.type ?? "home",
+				data.block ?? "",
+				data.street ?? "",
+				data.avenue ?? "",
+				data.houseNo ?? "",
+				data.apartmentNo ?? "",
+				data.floorNo ?? "",
+				data.officeNo ?? "",
+				data.specialDirection ?? "",
+				data.postalCode ?? "",
+				data.longitude ?? "",
+				data.latitude ?? "",
+      );
+		} catch (error) {
+			console.log('error adding adddress: ', error);
+		}
+  }
 
 	const handleBack = () => {
 		if (global?.localStorage?.getItem('locationId')) {
@@ -111,7 +195,8 @@ const NewDelivery = () => {
 						{t('Delivery')}
 					</p>
 				</div>
-				<div
+				{locationList?.length !== 0 &&
+					<div
 					className='delivery-button'
 					style={{
 						border: active === 'pickup' ? `1px solid ${primaryThemeColourCode}` : '',
@@ -127,7 +212,7 @@ const NewDelivery = () => {
 						}}>
 						{t('Pick up')}
 					</p>
-				</div>
+				</div>}
 			</div>
 
 			<div className='delivery-container'>
@@ -176,6 +261,9 @@ const NewDelivery = () => {
 								key={city._id}
 								value={t('local') === 'ar' ? city?.nameInArabic : city?.name}
 								className='delivery-select'
+								onClick={() =>{
+									setCityId(city._id);
+								}}
 								onChange={(e) => handleDelivery(e.target.value)}>
 								<option>{t('local') === 'ar' ? city?.nameInArabic : city?.name}</option>
 								{city?.stateInfo?.map((state) => (

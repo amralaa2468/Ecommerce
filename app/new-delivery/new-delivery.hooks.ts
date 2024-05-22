@@ -5,6 +5,7 @@ import {
 	getCountriesApi,
 	getSpecifiedCitiesApi,
 	getStorePickupLocationsApi,
+	viewCartApi,
 } from "./new-delivery.container";
 
 interface LocationList {
@@ -28,13 +29,15 @@ interface CityList {
 export const useDelivery = () => {
 	const [cityList, setCityList] = useState<CityList[]>([]);
 	const [locationList, setLocationList] = useState<LocationList[]>([]);
-
+	const [countryId, setCountryId] = useState<string>("");
+	
 	const getDelivery = async () => {
 		try {
 			const locationsRes = await getStorePickupLocationsApi(
 				global?.localStorage?.getItem("StoreId") ?? ""
 			);
 			const countriesRes = await getCountriesApi("Kuwait");
+			setCountryId(countriesRes[0]?._id);
 			const cities = await getSpecifiedCitiesApi(
 				countriesRes[0]._id,
 				global?.localStorage?.getItem("StoreId") ?? ""
@@ -49,5 +52,5 @@ export const useDelivery = () => {
 		getDelivery();
 	}, []);
 
-	return { locationList, cityList };
+	return { locationList, cityList, countryId };
 };

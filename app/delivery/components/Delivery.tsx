@@ -43,12 +43,16 @@ type data = {
   block: string;
   street: string;
   houseNo: string;
+  state: string;
+  stateInArabic: string;
 };
 
 const initialData = {
   block: "",
   street: "",
   houseNo: "",
+  state: "",
+  stateInArabic: "",
 };
 
 export const Delivery: React.FC<DeliveryProps> = ({
@@ -76,7 +80,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
   const [deliveryFees, setDeliveryFess] = useState(0);
   const [addressId, setAddressId] = useState("");
   const [data, setData] = useState<data>(initialData);
-  const { primaryThemeColourCode, secondrythemeColourCode } = useSelector(
+  const { primaryThemeColourCode, secondrythemeColourCode, avgPreparation } = useSelector(
     (state: RootState) => state.StoreReducer.customerDetails
   );
   const [isGiftEdit, setIsGift] = useState(isGift);
@@ -151,6 +155,29 @@ export const Delivery: React.FC<DeliveryProps> = ({
     setShowPayment(!showPayment);
   };
 
+  const calculatePickupTime = (avgPreparation:any) => {
+    // Handle potential errors (e.g., negative values)
+    if (avgPreparation < 0) {
+      return t('Invalid preparation time');
+    }
+  
+    // Convert minutes to days (assuming 24 hours per day)
+    const days = Math.floor(avgPreparation / (60 * 24));
+  
+    // Handle edge cases (less than a day)
+    if (days === 0) {
+      const hours = Math.floor(avgPreparation / 60);
+      const minutes = avgPreparation % 60;
+      return hours > 0
+        ? t('{{hours}} Hours {{minutes}} Minutes', { hours, minutes })
+        : t('{{minutes}} Minutes', { minutes });
+    } else {
+      return `${days} ${days === 1 ? t('Day') : t('Days')}`;
+    }
+  };
+
+  const formattedTime = calculatePickupTime(avgPreparation);
+
   return showAddress ? (
     <AddDeliveryAddress
       cityList={cityList}
@@ -171,7 +198,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
         <div style={{ display: "flex", alignItems: "center", gap: 23 }}>
           <img alt="pyke" style={{ width: 24, height: 24 }} src={bikeImg.src} />
           <p className="pickup-time" style={{ margin: 0 }}>
-            {t("Today - 9:00 AM to 10:00 AM")}
+            {formattedTime}
           </p>
         </div>
         <EditAddSvg />
@@ -209,7 +236,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
           gap: 7,
           alignItems: "start",
           width: "100%",
-          height: 129,
+          height: 'fit-content',
           border: "1px solid var(--C4C4C4, #C4C4C4)",
           backgroundColor: "var(--FFFFFF, #FFF)",
           padding: "15px 24px",
@@ -231,6 +258,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
               alignItems: "center",
               gap: 19,
               marginBottom: 7,
+              width: '100%'
             }}
           >
             <img
@@ -239,15 +267,36 @@ export const Delivery: React.FC<DeliveryProps> = ({
               style={{ width: 24, height: 24 }}
             />
             {retry === "true" ? (
-              <p className="deliver-text">
-                {t("block")} {cartData?.addressDetails?.block},{t("street")}{" "}
-                {cartData?.addressDetails?.street},{t("building")}{" "}
-                {cartData?.addressDetails?.houseNo}
+              <p className="delivery-text">
+                <span style={{ display: 'inline-block', width: '50%' }}>{t("State")}:</span>
+                <span style={{ display: 'inline-block', width: '50%' }}>
+                  {t('local') === 'ar' ? cartData?.addressDetails?.stateInArabic : cartData?.addressDetails?.state}
+                </span>
+                <br />
+                <span style={{ display: 'inline-block', width: '50%' }}>{t("Block")}:</span>
+                <span style={{ display: 'inline-block', width: '50%' }}>{cartData?.addressDetails?.block}</span>
+                <br />
+                <span style={{ display: 'inline-block', width: '50%' }}>{t("Street")}:</span>
+                <span style={{ display: 'inline-block', width: '50%' }}>{cartData?.addressDetails?.street}</span>
+                <br />
+                <span style={{ display: 'inline-block', width: '50%' }}>{t("Building")}:</span>
+                <span style={{ display: 'inline-block', width: '50%' }}>{cartData?.addressDetails?.houseNo}</span>
               </p>
             ) : (
               <p className="deliver-text">
-                {t("block")} {data.block},{t("street")} {data.street},
-                {t("building")} {data.houseNo}
+                <span style={{ display: 'inline-block', width: '50%' }}>{t("State")}:</span>
+                <span style={{ display: 'inline-block', width: '50%' }}>
+                  {t('local') === 'ar' ? data.stateInArabic : data.state}
+                </span>
+                <br />
+                <span style={{ display: 'inline-block', width: '50%' }}>{t("Block")}:</span>
+                <span style={{ display: 'inline-block', width: '50%' }}>{data.block}</span>
+                <br />
+                <span style={{ display: 'inline-block', width: '50%' }}>{t("Street")}:</span>
+                <span style={{ display: 'inline-block', width: '50%' }}>{data.street}</span>
+                <br />
+                <span style={{ display: 'inline-block', width: '50%' }}>{t("Building")}:</span>
+                <span style={{ display: 'inline-block', width: '50%' }}>{data.houseNo}</span>
               </p>
             )}
           </div>
@@ -269,6 +318,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
               display: "flex",
               alignItems: "center",
               gap: 19,
+              width: '100%'
             }}
           >
             <img
@@ -278,12 +328,19 @@ export const Delivery: React.FC<DeliveryProps> = ({
             />
             {retry === "true" ? (
               <p className="deliver-text">
-                {cartData?.customerDetails?.name}, +
-                {cartData?.customerDetails?.phoneNumber}
+                <span style={{ display: 'inline-block', width: '50%' }}>{t("Name")}:</span>
+                <span style={{ display: 'inline-block', width: '50%' }}>{cartData?.customerDetails?.name}</span>
+                <br />
+                <span style={{ display: 'inline-block', width: '50%' }}>{t("Phone Number")}:</span>
+                <span style={{ display: 'inline-block', width: '50%' }}>{cartData?.customerDetails?.phoneNumber}</span>
               </p>
             ) : (
               <p className="deliver-text">
-                {customerData?.name}, +{customerData?.phoneNumber}
+                <span style={{ display: 'inline-block', width: '50%' }}>{t("Name")}:</span>
+                <span style={{ display: 'inline-block', width: '50%' }}>{customerData?.name}</span>
+                <br />
+                <span style={{ display: 'inline-block', width: '50%' }}>{t("Phone Number")}:</span>
+                <span style={{ display: 'inline-block', width: '50%' }}>{customerData?.phoneNumber}</span>
               </p>
             )}
           </div>
@@ -302,7 +359,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
         }}
       >
         {cartData?.list?.map((product: any) => (
-          <div className="item-price-container w-full">
+          <div className="item-price-container w-full" key={product}>
             <div
               className="details-header"
               style={{
@@ -342,7 +399,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
         ))}
       </div>
 
-      <div style={{ width: "100%", height: 169, backgroundColor: "white" }}>
+      <div style={{ width: "100%", height: 220, backgroundColor: "white" }}>
         <div style={{ padding: "20px 51px" }}>
           <div
             style={{
@@ -398,9 +455,9 @@ export const Delivery: React.FC<DeliveryProps> = ({
         <div
           className="button-container"
           onClick={handleShowPayment}
-          style={{ backgroundColor: primaryThemeColourCode }}
+          style={{ backgroundColor: primaryThemeColourCode, marginBottom: "10px"  }}
         >
-          <p className="pickup-time" style={{ margin: 0 }}>
+          <p className="pickup-time" style={{ margin: 0}}>
             {t("Next")}
           </p>
         </div>
