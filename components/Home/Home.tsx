@@ -618,7 +618,8 @@ const Theme1 = () => {
                         width: 152.295,
                         height: 140.35,
                         borderRadius: 6.454,
-                        marginRight: "5px",
+                        marginRight: t("local") === "ar" ? "0px" : "5px", 
+                        marginLeft: t("local") === "ar" ? "5px" : "5px", 
                       }}
                     />
                   </Link>
@@ -639,7 +640,7 @@ const Theme1 = () => {
               justifyContent: categories?.length < 4 ? "center" : "start",
               gap: 20,
               overflowX: "auto",
-              marginBottom: 31,
+              marginBottom: 15,
               padding: '0px 10px 0px 10px'
             }}
             className="scrollbar-hide"
