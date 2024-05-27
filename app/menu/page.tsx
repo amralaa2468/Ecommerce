@@ -52,13 +52,13 @@ const MenuPage = () => {
 				<p className="menu-text text-[16px] font-[400px]">{t("My Orders")}</p>
 			</div>
 			<div
-				// onClick={() => router.push("/my-orders")}
+				onClick={() => router.push("/store-policy")}
 				className="menu-container h-[46px] cursor-pointer">
 				<StorePolicySvg />
 				<p className="menu-text text-[16px] font-[400px]">{t("Store Policy")}</p>
 			</div>
 			<div
-				// onClick={() => router.push("/my-orders")}
+				onClick={() => router.push("/about-us")}
 				className="menu-container h-[46px] cursor-pointer">
 				<AboutUsSvg />
 				<p className="menu-text text-[16px] font-[400px]">{t("About Us")}</p>
