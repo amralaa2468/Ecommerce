@@ -9,11 +9,11 @@ export const getOrderDetailsByPaymentReference = gql`
 			orderId
 			orderPlacedAt
 			orderType
-			pickupCarrierInfo {
-				carType
-				plateColor
-				carMake
-			}
+			pickupCarrierInfo{
+        carBrand
+        carColor
+        carPlate
+      }
 			discountType
 			discountValue
 			invoiceLink

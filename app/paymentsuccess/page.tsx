@@ -41,6 +41,8 @@ const NewPaymentSuccess = () => {
 
 	const { orderDetails } = usePaymentSuccess(paymentReference);
 
+	console.log('order details: ', orderDetails)
+
 	useEffect(() => {
 		if (typeof window !== "undefined") {
 			// Access window object only on the client side
@@ -242,7 +244,7 @@ const NewPaymentSuccess = () => {
 											<div
 												style={{
 													display: "flex",
-													alignItems: "end",
+													alignItems: "center",
 													gap: 8.41,
 												}}>
 												<img
@@ -275,7 +277,7 @@ const NewPaymentSuccess = () => {
 											))}
 										</td>
 										<td className="details-row">{product?.specialInstructions}</td>
-										<td className="details-row">KD {product?.price}</td>
+										<td className="details-row">{product?.price} KD</td>
 									</tr>
 								))}
 							</tbody>
@@ -302,7 +304,7 @@ const NewPaymentSuccess = () => {
 								width: "100%",
 							}}>
 							<p className="details-prices">Subtotal</p>
-							<p className="details-prices">KD {orderDetails?.orderTotal}</p>
+							<p className="details-prices">{orderDetails?.orderTotal} KD</p>
 						</div>
 
 						{orderDetails?.shippingCharge ? (
@@ -316,7 +318,7 @@ const NewPaymentSuccess = () => {
 									width: "100%",
 								}}>
 								<p className="details-prices">Delivery fees</p>
-								<p className="details-prices">KD {orderDetails?.shippingCharge}</p>
+								<p className="details-prices">{orderDetails?.shippingCharge} KD</p>
 							</div>
 						) : (
 							""
@@ -337,7 +339,7 @@ const NewPaymentSuccess = () => {
 									<p
 										className="details-prices"
 										style={{ color: "green" }}>
-										-KD {orderDetails?.discountValue}
+										-{orderDetails?.discountValue} KD
 									</p>
 								)}
 								{orderDetails?.discountType === "percentage" && (
@@ -360,7 +362,7 @@ const NewPaymentSuccess = () => {
 								width: "100%",
 							}}>
 							<p className="details-prices">Total</p>
-							<p className="details-prices">KD {orderDetails?.grandTotal}</p>
+							<p className="details-prices">{orderDetails?.grandTotal} KD</p>
 						</div>
 					</div>
 
@@ -428,7 +430,7 @@ const NewPaymentSuccess = () => {
 							}}>
 							<p
 								className="install-text"
-								style={{ fontSize: 20, fontWeight: 600 }}>
+								style={{ fontSize: 20, fontWeight: 600, lineHeight: 1 }}>
 								{storeName}
 							</p>
 							<p className="install-text">
@@ -569,7 +571,7 @@ const NewPaymentSuccess = () => {
 										<div
 											style={{
 												display: "flex",
-												alignItems: "end",
+												alignItems: "center",
 												gap: 8.41,
 											}}>
 											<img
@@ -602,7 +604,7 @@ const NewPaymentSuccess = () => {
 										))}
 									</td>
 									<td className="details-row">{product?.specialInstructions}</td>
-									<td className="details-row">KD {product?.price}</td>
+									<td className="details-row">{product?.price} KD</td>
 								</tr>
 							))}
 						</tbody>
@@ -629,7 +631,7 @@ const NewPaymentSuccess = () => {
 							width: "100%",
 						}}>
 						<p className="details-prices">Subtotal</p>
-						<p className="details-prices">KD {orderDetails?.orderTotal}</p>
+						<p className="details-prices">{orderDetails?.orderTotal} KD</p>
 					</div>
 
 					{orderDetails?.shippingCharge ? (
@@ -643,7 +645,7 @@ const NewPaymentSuccess = () => {
 								width: "100%",
 							}}>
 							<p className="details-prices">Delivery fees</p>
-							<p className="details-prices">KD {orderDetails?.shippingCharge}</p>
+							<p className="details-prices">{orderDetails?.shippingCharge} KD</p>
 						</div>
 					) : (
 						""
@@ -664,7 +666,7 @@ const NewPaymentSuccess = () => {
 								<p
 									className="details-prices"
 									style={{ color: "green" }}>
-									-KD {orderDetails?.discountValue}
+									-{orderDetails?.discountValue} KD
 								</p>
 							)}
 							{orderDetails?.discountType === "percentage" && (
@@ -687,7 +689,7 @@ const NewPaymentSuccess = () => {
 							width: "100%",
 						}}>
 						<p className="details-prices">Total</p>
-						<p className="details-prices">KD {orderDetails?.grandTotal}</p>
+						<p className="details-prices">{orderDetails?.grandTotal} KD</p>
 					</div>
 				</div>
 

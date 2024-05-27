@@ -367,6 +367,7 @@ const NewProductPage = () => {
                 padding: '10px',
                 border: 'none',
                 outline: 'none',
+                transform: t("local") === "ar" ? 'rotate(180deg)' : 'rotate(0deg)', 
               }}
               onClick={showPreviousImage}>
               <BackSvg />
@@ -382,7 +383,7 @@ const NewProductPage = () => {
                 padding: '10px',
                 border: 'none',
                 outline: 'none',
-                transform: 'rotate(180deg)',
+                transform: t("local") === "ar" ? 'rotate(0deg)' : 'rotate(180deg)', 
               }}
               onClick={showNextImage}>
               <BackSvg />

@@ -356,6 +356,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
         style={{
           display: "flex",
           flexDirection: "column",
+          height: 'fit-content'
         }}
       >
         {cartData?.list?.map((product: any) => (

@@ -156,7 +156,9 @@ export const usePaymentSuccess = (paymentReference: string) => {
 			const { getOrderDetailsByPaymentReference } =
 				await getOrderDetailsByPaymentReferenceApi(paymentReference);
 			setOrderDetails(getOrderDetailsByPaymentReference);
-		} catch (error) {}
+		} catch (error) {
+			console.log('error getting order details: ', error)
+		}
 	};
 
 	useEffect(() => {

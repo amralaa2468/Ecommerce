@@ -241,7 +241,7 @@ const NewPaymentFailure = () => {
 											<div
 												style={{
 													display: "flex",
-													alignItems: "end",
+													alignItems: "center",
 													gap: 8.41,
 												}}>
 												<img
@@ -274,7 +274,7 @@ const NewPaymentFailure = () => {
 											))}
 										</td>
 										<td className="details-row">{product?.specialInstructions}</td>
-										<td className="details-row">KD {product?.price}</td>
+										<td className="details-row">{product?.price} KD</td>
 									</tr>
 								))}
 							</tbody>
@@ -301,7 +301,7 @@ const NewPaymentFailure = () => {
 								width: "100%",
 							}}>
 							<p className="details-prices">Subtotal</p>
-							<p className="details-prices">KD {orderDetails?.orderTotal}</p>
+							<p className="details-prices">{orderDetails?.orderTotal} KD</p>
 						</div>
 
 						{orderDetails?.shippingCharge ? (
@@ -315,7 +315,7 @@ const NewPaymentFailure = () => {
 									width: "100%",
 								}}>
 								<p className="details-prices">Delivery fees</p>
-								<p className="details-prices">KD {orderDetails?.shippingCharge}</p>
+								<p className="details-prices">{orderDetails?.shippingCharge} KD</p>
 							</div>
 						) : (
 							""
@@ -336,7 +336,7 @@ const NewPaymentFailure = () => {
 									<p
 										className="details-prices"
 										style={{ color: "green" }}>
-										-KD {orderDetails?.discountValue}
+										-{orderDetails?.discountValue} KD
 									</p>
 								)}
 								{orderDetails?.discountType === "percentage" && (
@@ -359,7 +359,7 @@ const NewPaymentFailure = () => {
 								width: "100%",
 							}}>
 							<p className="details-prices">Total</p>
-							<p className="details-prices">KD {orderDetails?.grandTotal}</p>
+							<p className="details-prices">{orderDetails?.grandTotal} KD</p>
 						</div>
 					</div>
 
@@ -550,7 +550,7 @@ const NewPaymentFailure = () => {
 										<div
 											style={{
 												display: "flex",
-												alignItems: "end",
+												alignItems: "center",
 												gap: 8.41,
 											}}>
 											<img
@@ -583,7 +583,7 @@ const NewPaymentFailure = () => {
 										))}
 									</td>
 									<td className="details-row">{product?.specialInstructions}</td>
-									<td className="details-row">KD {product?.price}</td>
+									<td className="details-row">{product?.price} KD</td>
 								</tr>
 							))}
 						</tbody>
@@ -610,7 +610,7 @@ const NewPaymentFailure = () => {
 							width: "100%",
 						}}>
 						<p className="details-prices">Subtotal</p>
-						<p className="details-prices">KD {orderDetails?.orderTotal}</p>
+						<p className="details-prices">{orderDetails?.orderTotal} KD</p>
 					</div>
 
 					{orderDetails?.shippingCharge ? (
@@ -624,7 +624,7 @@ const NewPaymentFailure = () => {
 								width: "100%",
 							}}>
 							<p className="details-prices">Delivery fees</p>
-							<p className="details-prices">KD {orderDetails?.shippingCharge}</p>
+							<p className="details-prices">{orderDetails?.shippingCharge} KD</p>
 						</div>
 					) : (
 						""
@@ -645,7 +645,7 @@ const NewPaymentFailure = () => {
 								<p
 									className="details-prices"
 									style={{ color: "green" }}>
-									-KD {orderDetails?.discountValue}
+									-{orderDetails?.discountValue} KD
 								</p>
 							)}
 							{orderDetails?.discountType === "percentage" && (
@@ -668,7 +668,7 @@ const NewPaymentFailure = () => {
 							width: "100%",
 						}}>
 						<p className="details-prices">Total</p>
-						<p className="details-prices">KD {orderDetails?.grandTotal}</p>
+						<p className="details-prices">{orderDetails?.grandTotal} KD</p>
 					</div>
 				</div>
 
