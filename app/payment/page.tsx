@@ -66,8 +66,8 @@ const InstallmentsPage = () => {
 			// Access window object only on the client side
 			hostname.current = window.location.hostname;
 		}
-		i18n.changeLanguage("en");
-    document.documentElement.dir = "ltr";
+		// i18n.changeLanguage("en");
+    // document.documentElement.dir = "ltr";
 	}, []);
 
 	const handlePaynow = (installment: customerDetails) => {
@@ -104,9 +104,9 @@ const InstallmentsPage = () => {
 			) : showPayment === "install" ? (
 				<div className="install-layout">
 					<div className="install-container">
-						<p className="install-invoice">Invoice</p>
+						<p className="install-invoice">{t("Invoice")}</p>
 						<div className="install-container-inner">
-							<div className="flex items-center gap-[14.16px]">
+							<div className="flex items-center gap-[14.16px] flex-wrap">
 								<img
 									src={logo}
 									alt="store-logo"
@@ -125,10 +125,9 @@ const InstallmentsPage = () => {
 										style={{ fontSize: 20, fontWeight: 600 }}>
 										{storeName}
 									</p>
-									<p className="install-text">Mobile: {phoneNumber}</p>
+									<p className="install-text">{t("Mobile")}: {phoneNumber}</p>
 									<p className="install-text">{email}</p>
-									<p className="install-text">www.{hostname.current}.com</p>
-									<p className="install-text">Mobile: {phoneNumber}</p>
+									<p className="install-text">www.{hostname.current}</p>
 								</div>
 							</div>
 
@@ -141,19 +140,19 @@ const InstallmentsPage = () => {
 										alignItems: "start",
 									}}>
 									<p className="install-text">
-										Bill number : {customerDetails[0]?.billNumber}
+										{t("Bill number")} : {customerDetails[0]?.billNumber}
 									</p>
 									<p className="install-text">
-										REF. Number : {customerDetails[0]?.referenceNumber}
+										{t("REF. Number")} : {customerDetails[0]?.referenceNumber}
 									</p>
 									<p className="install-text">
-										Created Time :{" "}
+										{t("Created Time")} :{" "}
 										{moment(parseInt(customerDetails[0]?.orderPlacedAt)).format(
 											"DD/MM/YYYY HH:mma"
 										)}
 									</p>
 									<p className="install-text">
-										Status : {customerDetails[customerDetails?.length - 1]?.status}
+										{t("Status")} : {t(customerDetails[customerDetails?.length - 1]?.status)}
 									</p>
 								</div>
 							)}
@@ -162,14 +161,14 @@ const InstallmentsPage = () => {
 
 					<div className="install-table">
 						<div className="install-head">
-							<p className="install-head-text">Sr.No</p>
-							<p className="install-head-text">Due Date</p>
-							<p className="install-head-text">Amount</p>
-							<p className="install-head-text">Status</p>
+							<p className="install-head-text">{t("Sr.No")}</p>
+							<p className="install-head-text">{t("Due Date")}</p>
+							<p className="install-head-text">{t("Amount")}</p>
+							<p className="install-head-text">{t("Status")}</p>
 							<p
 								className="install-head-text"
 								style={{ gridColumn: "span 2 / span 2" }}>
-								Action
+								{t("Action")}
 							</p>
 						</div>
 						{customerDetails?.map((install, index) => (
@@ -202,7 +201,7 @@ const InstallmentsPage = () => {
 									</div>
 								) : (
 									<p className="install-row-text">
-										{install?.orderTotal}KWD
+										{install?.orderTotal} {t("KD")}
 										{install?.partOfInstallmentsTotal === -1
 											? ""
 											: install?.allowEditByPayer && (
@@ -214,7 +213,7 @@ const InstallmentsPage = () => {
 											  )}
 									</p>
 								)}
-								<p className="install-row-text">{install?.status}</p>
+								<p className="install-row-text">{t(install?.status)}</p>
 								{(customerDetails[index - 1]?.status === "pending" || customerDetails[index - 1]?.status === "failed") ? (
 									<p
 										className="install-row-text"
@@ -226,14 +225,14 @@ const InstallmentsPage = () => {
 										className="install-pay"
 										style={{ gridColumn: "span 2 / span 2" }}
 										onClick={() => handlePaynow(install)}>
-										Pay Now
+										{t("Pay Now")}
 									</p>
 								) : (
 									<p
 										className="install-view"
 										style={{ gridColumn: "span 2 / span 2" }}
 										onClick={() => window.open(install?.invoiceLink, "_self")}>
-										View
+										{t("View")}
 									</p>
 								)}
 							</div>
@@ -246,12 +245,12 @@ const InstallmentsPage = () => {
 								width: "100%",
 								padding: "0px 0px",
 							}}>
-							<p className="install-table-total">Total due:</p>
+							<p className="install-table-total">{t("Total due")}:</p>
 							<p className="install-table-total">
 								{customerDetails && customerDetails?.length === 1
 									? customerDetails[0]?.orderTotal
 									: customerDetails[0]?.partOfInstallmentsTotal}{" "}
-								KWD
+								{t("KD")}
 							</p>
 						</div>
 					</div>

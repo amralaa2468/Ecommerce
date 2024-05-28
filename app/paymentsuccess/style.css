@@ -25,7 +25,7 @@
   right: 0;
   z-index: 99;
   overflow-y: scroll;
-  padding: 100px 75px;
+  padding: 50px 50px;
   display: flex;
   gap: 60px;
   align-items: flex-start;
@@ -157,10 +157,10 @@
 .details-text {
   color: var(--52565E, #52565e);
   white-space: nowrap;
-  font-size: 20px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 400;
-  line-height: 12px; /* 120% */
+  line-height: 14px; /* 120% */
   padding: 0px !important;
 }
 
@@ -213,8 +213,9 @@
   font-weight: 500;
   line-height: 14px; /* 175% */
   border-bottom: 0.6px solid #ebeff6;
-  padding: 9px 25px 18px 25px;
+  padding: 9px 25px;
   margin: 0px !important;
+  text-align: center;
 }
 
 .details-prices {

@@ -45,9 +45,9 @@ interface orderDetails {
 }
 
 type pickupCarrierInfo = {
-	carType: string;
-	plateColor: string;
-	carMake: string;
+	carBrand: string;
+	carColor: string;
+	carPlate: string;
 };
 
 type promo = {

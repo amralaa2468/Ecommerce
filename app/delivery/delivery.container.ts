@@ -223,9 +223,9 @@ export const placeOrderApi = (
   isGift: Boolean,
   giftMessage: string,
   specialRemarks: string,
-  carMake: string,
-  carType: string,
-  plateColor: string
+  carColor: string,
+  carBrand: string,
+  plateNumber: string
 ) => {
   const apolloClient = createApolloClient();
   try {
@@ -249,7 +249,7 @@ export const placeOrderApi = (
           isGift,
           giftMessage,
           specialRemarks,
-          pickupCarrierInfo: { carBrand: carType, carColor: plateColor, carPlate: carMake },
+          pickupCarrierInfo: { carBrand: carBrand, carColor: carColor, carPlate: plateNumber },
         },
       })
       .then(({ data }) => data.placeOrder);

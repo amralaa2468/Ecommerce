@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { useTranslation } from "react-i18next";
 
 import { placeOrderFromTempV2Api } from "../payment.container";
 
@@ -51,6 +52,7 @@ const PlaceOrder: React.FC<PlaceOrdersProps> = ({
 }) => {
 	const { logo, storeName, enableKnetPayment, enableCreditPayment } =
 		useSelector((state: RootState) => state.StoreReducer.customerDetails);
+	const { t } = useTranslation();
 
 	const [paymentMethod, setPaymentMethod] = useState("knet");
 	const [errorMsg, setErrorMsg] = useState("");
@@ -87,12 +89,12 @@ const PlaceOrder: React.FC<PlaceOrdersProps> = ({
 		<div className="order-layout">
 			<div className="order-container">
 				<div
-					className="absolute top-[-15px] right-[-10px] cursor-pointer"
+					className={`absolute top-[-15px] ${t("local") === "ar" ? "left-[-10px]" : "right-[-10px]"} cursor-pointer`}
 					onClick={onClose}>
 					<ExitSvg />
 				</div>
-				<div className="flex items-center gap-2.5 mb-[7px] ml-[30px]">
-					<p className="order-powered">Powered by</p>
+				<div className={`flex items-center gap-2.5 mb-[7px] ${t("local") === "ar" ? "mr-[30px]" : "ml-[30px]"}`}>
+					<p className="order-powered">{t("Powered by")}</p>
 					<EcomLogoSvg />
 				</div>
 
@@ -111,7 +113,7 @@ const PlaceOrder: React.FC<PlaceOrdersProps> = ({
 									marginBottom: 12,
 								}}
 							/>
-							<p className="order-store-name">PAYMENT FOR</p>
+							<p className="order-store-name">{t("PAYMENT FOR")}</p>
 							<p
 								className="order-store-name"
 								style={{ fontWeight: 700 }}>
@@ -120,7 +122,7 @@ const PlaceOrder: React.FC<PlaceOrdersProps> = ({
 						</div>
 
 						<div className="order-details-menu">
-							<p className="order-details-menu-text">Order details</p>
+							<p className="order-details-menu-text">{t("Order details")}</p>
 							<div
 								style={{ cursor: "pointer" }}
 								onClick={() => setOpenMenu(!openMenu)}>
@@ -130,21 +132,21 @@ const PlaceOrder: React.FC<PlaceOrdersProps> = ({
 							{openMenu && (
 								<div className="order-details-dropdown">
 									<div className="order-details-dropdown-con">
-										<p className="order-details-dropdown-text">Items</p>
+										<p className="order-details-dropdown-text">{t("Items")}</p>
 										<p className="order-details-dropdown-text">{totalQuantity}</p>
 									</div>
 									<div className="order-details-dropdown-con">
-										<p className="order-details-dropdown-text">Subtotal</p>
+										<p className="order-details-dropdown-text">{t("Subtotal")}</p>
 										<p className="order-details-dropdown-text">
-											KD {customerDetails?.orderTotal}
+											{customerDetails?.orderTotal} {t("KD")}
 										</p>
 									</div>
 									{customerDetails?.shippingCharge &&
 									customerDetails?.shippingCharge !== 0 ? (
 										<div className="order-details-dropdown-con">
-											<p className="order-details-dropdown-text">Delivery fees </p>
+											<p className="order-details-dropdown-text">{t("Delivery fees")} </p>
 											<p className="order-details-dropdown-text">
-												KD {customerDetails?.shippingCharge}
+												{customerDetails?.shippingCharge} {t("KD")}
 											</p>
 										</div>
 									) : (
@@ -152,7 +154,7 @@ const PlaceOrder: React.FC<PlaceOrdersProps> = ({
 									)}
 									{customerDetails?.discountValue && (
 										<div className="order-details-dropdown-con">
-											<p className="order-details-dropdown-text">Discount</p>
+											<p className="order-details-dropdown-text">{t("Discount")}</p>
 											<p
 												className="order-details-dropdown-text"
 												style={{ color: "#5FC123" }}>
@@ -162,9 +164,9 @@ const PlaceOrder: React.FC<PlaceOrdersProps> = ({
 										</div>
 									)}
 									<div className="order-details-dropdown-con">
-										<p className="order-details-dropdown-text">Total</p>
+										<p className="order-details-dropdown-text">{t("Total")}</p>
 										<p className="order-details-dropdown-text">
-											KD {customerDetails?.orderTotal + customerDetails?.shippingCharge}
+											{customerDetails?.orderTotal + customerDetails?.shippingCharge} {t("KD")}
 										</p>
 									</div>
 								</div>
@@ -197,7 +199,7 @@ const PlaceOrder: React.FC<PlaceOrdersProps> = ({
 						<div
 							className="order-payment-button"
 							onClick={handlePayment}>
-							<p className="order-payment-button-text">Pay with</p>
+							<p className="order-payment-button-text">{t("Pay with")}</p>
 							{(enableKnetPayment || enableCreditPayment) && paymentMethod !== "" && (
 								<img
 									alt="knet"

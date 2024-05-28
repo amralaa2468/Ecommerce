@@ -38,8 +38,9 @@ const NewPaymentFailure = () => {
 			// Access window object only on the client side
 			hostname.current = window.location.hostname;
 		}
-		i18n.changeLanguage("en");
-    document.documentElement.dir = "ltr";
+		// i18n.changeLanguage("en");
+    // document.documentElement.dir = "ltr";
+		
 	}, []);
 
 	return type === "order" || type === "e-link" ? (
@@ -65,7 +66,7 @@ const NewPaymentFailure = () => {
 								{storeName}
 							</p>
 							<p className="install-text">
-								Mobile: {orderDetails?.orderLocationPhoneNumber}
+								{t("Mobile")}: {orderDetails?.orderLocationPhoneNumber}
 							</p>
 							<p className="install-text">{email}</p>
 							<p className="install-text">www.{hostname.current}</p>
@@ -79,7 +80,7 @@ const NewPaymentFailure = () => {
 									gap: 55,
 									margin: "10px 0px",
 								}}>
-								<p className="success-header">Declined!</p>
+								<p className="success-header">{t("Declined")}!</p>
 								<FailureSvg />
 							</div>
 							<p
@@ -90,7 +91,7 @@ const NewPaymentFailure = () => {
 									margin: "0px 0px 20px 0px",
 									whiteSpace: "pre-wrap",
 								}}>
-								Something went wrong while trying to reserve money from your account
+								{t("Something went wrong while trying to reserve money from your account")}!
 							</p>
 							<div
 								style={{
@@ -99,23 +100,23 @@ const NewPaymentFailure = () => {
 									gap: 18,
 									alignItems: "start",
 								}}>
-								<p className="install-text">Bill number: {orderDetails?.billNumber}</p>
+								<p className="install-text">{t("Bill number")}: {orderDetails?.billNumber}</p>
 								<p className="install-text">
-									REF. Number: {orderDetails?.referenceNumber}
+									{t("REF. Number")}: {orderDetails?.referenceNumber}
 								</p>
 								<p className="install-text">
-									{gatewayIdentifier} Payment ID: {paymentId}
+									{gatewayIdentifier} {t("Payment ID")}: {paymentId}
 								</p>
-								<p className="install-text">TXN. Number: {transactionId}</p>
-								<p className="install-text">Authorization ID: {authorizationId}</p>
-								<p className="install-text">Track ID: {trackId ?? ""}</p>
+								<p className="install-text">{t("TXN. Number")}: {transactionId}</p>
+								<p className="install-text">{t("Authorization ID")}: {authorizationId}</p>
+								<p className="install-text">{t("Track ID")}: {trackId ?? ""}</p>
 							</div>
 						</div>
 					</div>
 					<div className="details-web-container">
 						<div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-							<h1 className="details-header">Bill To: {orderDetails?.customerName}</h1>
-							<h1 className="details-text">Kuwait</h1>
+							<h1 className="details-header">{t("Bill To")}: {orderDetails?.customerName}</h1>
+							<h1 className="details-text">{t("Kuwait")}</h1>
 							<h1 className="details-text">{orderDetails?.phoneNumber}</h1>
 							<h1 className="details-text">{orderDetails?.email}</h1>
 						</div>
@@ -128,36 +129,36 @@ const NewPaymentFailure = () => {
 									borderLeft: "1px solid #C4C4C4",
 									paddingLeft: 20,
 								}}>
-								<h1 className="details-header">Full address:</h1>
+								<h1 className="details-header">{t("Full address")}:</h1>
 								<h1 className="details-text">
-									Area: {orderDetails?.addressInfo?.state}
+									{t("Area")}: {orderDetails?.addressInfo?.state}
 								</h1>
 								<h1 className="details-text">
-									street: {orderDetails?.addressInfo?.street}
+									{t("street")}: {orderDetails?.addressInfo?.street}
 								</h1>
 								<h1 className="details-text">
-									House: {orderDetails?.addressInfo?.houseNo}
+									{t("House")}: {orderDetails?.addressInfo?.houseNo}
 								</h1>
 								<h1 className="details-text">
-									Block: {orderDetails?.addressInfo?.block}
+									{t("Block")}: {orderDetails?.addressInfo?.block}
 								</h1>
 								{orderDetails?.addressInfo?.apartmentNo !== "" &&
 									orderDetails?.addressInfo?.apartmentNo !== "undefined" && (
 										<h1 className="details-text">
-											Apartment: {orderDetails?.addressInfo?.apartmentNo}
+											{t("Apartment")}: {orderDetails?.addressInfo?.apartmentNo}
 										</h1>
 									)}
 
 								{orderDetails?.addressInfo?.officeNo !== "" &&
 									orderDetails?.addressInfo?.officeNo !== "undefined" && (
 										<h1 className="details-text">
-											Office: {orderDetails?.addressInfo?.officeNo}
+											{t("Office")}: {orderDetails?.addressInfo?.officeNo}
 										</h1>
 									)}
 								{orderDetails?.addressInfo?.floorNo !== "" &&
 									orderDetails?.addressInfo?.floorNo !== "undefined" && (
 										<h1 className="details-text">
-											Floor: {orderDetails?.addressInfo?.floorNo}
+											{t("Floor")}: {orderDetails?.addressInfo?.floorNo}
 										</h1>
 									)}
 							</div>
@@ -171,20 +172,20 @@ const NewPaymentFailure = () => {
 									borderLeft: "1px solid #C4C4C4",
 									paddingLeft: 20,
 								}}>
-								<h1 className="details-header">Car details:</h1>
+								<h1 className="details-header">{t("Car details")}:</h1>
 								<h1 className="details-text">
-									Color: {orderDetails?.pickupCarrierInfo?.carMake}
+									{t("Brand")}: {orderDetails?.pickupCarrierInfo?.carBrand}
 								</h1>
 								<h1 className="details-text">
-									Color: {orderDetails?.pickupCarrierInfo?.plateColor}
+									{t("Color")}: {orderDetails?.pickupCarrierInfo?.carColor}
 								</h1>
 								<h1 className="details-text">
-									Plate Number: {orderDetails?.pickupCarrierInfo?.carType}
+									{t("Plate Number")}: {orderDetails?.pickupCarrierInfo?.carPlate}
 								</h1>
 							</div>
 						)}
 						<div>
-							<h1 className="details-header">Payment:</h1>
+							<h1 className="details-header">{t("Payment")}:</h1>
 							<h1 className="details-text">{gatewayIdentifier}</h1>
 						</div>
 					</div>
@@ -193,20 +194,20 @@ const NewPaymentFailure = () => {
 							<button
 								className="retry-btn"
 								onClick={() => router.push("/my-cart?retry=true")}>
-								RETRY PAYMENT
+								{t("RETRY PAYMENT")}
 							</button>
 						) : (
 							<button
 								className="retry-btn"
 								onClick={() => window.open(orderDetails?.link, "_self")}>
-								RETRY PAYMENT
+								{t("RETRY PAYMENT")}
 							</button>
 						)}
 						{type === "order" && (
 							<button
 								className="back-btn"
 								onClick={() => router.push("/")}>
-								GO BACK
+								{t("GO BACK")}
 							</button>
 						)}
 					</div>
@@ -221,17 +222,17 @@ const NewPaymentFailure = () => {
 						justifyContent: "center",
 					}}>
 					{orderDetails?.productInfo[0]?.productName !== null && (
-						<div className="order-items-container">Order Items</div>
+						<div className="order-items-container">{t("Order Items")}</div>
 					)}
 					{orderDetails?.productInfo[0]?.productName !== null && (
 						<table className="details-table">
 							<thead className="details-table-head">
 								<tr>
-									<th className="details-head">Item</th>
-									<th className="details-head">QTY</th>
-									<th className="details-head">Details</th>
-									<th className="details-head">Special instruction</th>
-									<th className="details-head">Amount</th>
+									<th className="details-head">{t("Item")}</th>
+									<th className="details-head">{t("QTY")}</th>
+									<th className="details-head">{t("Details")}</th>
+									<th className="details-head">{t("Special instruction")}</th>
+									<th className="details-head">{t("Amount")}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -266,6 +267,7 @@ const NewPaymentFailure = () => {
 										<td className="details-row">
 											{product?.variantsDetails?.map((variant, index) => (
 												<p
+													key={index}
 													className="cart-name"
 													style={{ padding: 0, margin: 0 }}>
 													{variant?.name}{" "}
@@ -274,7 +276,7 @@ const NewPaymentFailure = () => {
 											))}
 										</td>
 										<td className="details-row">{product?.specialInstructions}</td>
-										<td className="details-row">{product?.price} KD</td>
+										<td className="details-row">{product?.price} {t("KD")}</td>
 									</tr>
 								))}
 							</tbody>
@@ -300,8 +302,8 @@ const NewPaymentFailure = () => {
 								borderBottom: "1px solid #979797",
 								width: "100%",
 							}}>
-							<p className="details-prices">Subtotal</p>
-							<p className="details-prices">{orderDetails?.orderTotal} KD</p>
+							<p className="details-prices">{t("Subtotal")}</p>
+							<p className="details-prices">{orderDetails?.orderTotal} {t("KD")}</p>
 						</div>
 
 						{orderDetails?.shippingCharge ? (
@@ -314,8 +316,8 @@ const NewPaymentFailure = () => {
 									borderBottom: "1px solid #979797",
 									width: "100%",
 								}}>
-								<p className="details-prices">Delivery fees</p>
-								<p className="details-prices">{orderDetails?.shippingCharge} KD</p>
+								<p className="details-prices">{t("Delivery fees")}</p>
+								<p className="details-prices">{orderDetails?.shippingCharge} {t("KD")}</p>
 							</div>
 						) : (
 							""
@@ -331,12 +333,12 @@ const NewPaymentFailure = () => {
 									borderBottom: "1px solid #979797",
 									width: "100%",
 								}}>
-								<p className="details-prices">Discount</p>
+								<p className="details-prices">{t("Discount")}</p>
 								{orderDetails?.discountType === "amount" && (
 									<p
 										className="details-prices"
 										style={{ color: "green" }}>
-										-{orderDetails?.discountValue} KD
+										-{orderDetails?.discountValue} {t("KD")}
 									</p>
 								)}
 								{orderDetails?.discountType === "percentage" && (
@@ -358,8 +360,8 @@ const NewPaymentFailure = () => {
 								justifyContent: "space-between",
 								width: "100%",
 							}}>
-							<p className="details-prices">Total</p>
-							<p className="details-prices">{orderDetails?.grandTotal} KD</p>
+							<p className="details-prices">{t("Total")}</p>
+							<p className="details-prices">{orderDetails?.grandTotal} {t("KD")}</p>
 						</div>
 					</div>
 
@@ -372,7 +374,7 @@ const NewPaymentFailure = () => {
 							margin: "60px 50px 0px 50px",
 							height: "100%",
 						}}>
-						<p className="payment-powered">Powered by</p>
+						<p className="payment-powered">{t("Powered by")}</p>
 						<EcomLogoSvg />
 					</div>
 				</div>
@@ -389,7 +391,7 @@ const NewPaymentFailure = () => {
 					<p
 						className="success-header"
 						style={{ fontWeight: "700", fontSize: "24px" }}>
-						Declined!
+						{t("Declined")}!
 					</p>
 					<FailureSvg />
 				</div>
@@ -400,7 +402,7 @@ const NewPaymentFailure = () => {
 						fontWeight: 400,
 						margin: "0px 35px 17px 35px",
 					}}>
-					Something went wrong while trying to reserve money from your account!
+					{t("Something went wrong while trying to reserve money from your account")}!
 				</p>
 				<div className="success-container">
 					<div
@@ -429,7 +431,7 @@ const NewPaymentFailure = () => {
 								{storeName}
 							</p>
 							<p className="install-text">
-								Mobile: {orderDetails?.orderLocationPhoneNumber}
+								{t("Mobile")}: {orderDetails?.orderLocationPhoneNumber}
 							</p>
 							<p className="install-text">{email}</p>
 							<p className="install-text">www.{hostname.current}</p>
@@ -443,23 +445,23 @@ const NewPaymentFailure = () => {
 							paddingRight: "5px",
 							marginBottom: "10px",
 						}}>
-						<p className="install-text">Bill number: {orderDetails?.billNumber}</p>
+						<p className="install-text">{t("Bill number")}: {orderDetails?.billNumber}</p>
 						<p className="install-text">
-							REF. Number: {orderDetails?.referenceNumber}
+							{t("REF. Number")}: {orderDetails?.referenceNumber}
 						</p>
 						<p className="install-text">
-							{gatewayIdentifier} Payment ID: {paymentId}
+							{gatewayIdentifier} {t("Payment ID")}: {paymentId}
 						</p>
-						<p className="install-text">TXN. Number: {transactionId}</p>
-						<p className="install-text">Authorization ID: {authorizationId}</p>
-						<p className="install-text">Track ID: {trackId}</p>
+						<p className="install-text">{t("TXN. Number")}: {transactionId}</p>
+						<p className="install-text">{t("Authorization ID")}: {authorizationId}</p>
+						<p className="install-text">{t("Track ID")}: {trackId}</p>
 					</div>
 				</div>
 
 				<div className="details-container">
 					<div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-						<h1 className="details-header">Bill To: {orderDetails?.customerName}</h1>
-						<h1 className="details-text">Kuwait</h1>
+						<h1 className="details-header">{t("Bill To")}: {orderDetails?.customerName}</h1>
+						<h1 className="details-text">{t("Kuwait")}</h1>
 						<h1 className="details-text">{orderDetails?.phoneNumber}</h1>
 						<h1 className="details-text">{orderDetails?.email}</h1>
 						<h1 className="details-header">Payment:</h1>
@@ -474,36 +476,36 @@ const NewPaymentFailure = () => {
 								borderLeft: "1px solid #C4C4C4",
 								paddingLeft: 20,
 							}}>
-							<h1 className="details-header">Full address:</h1>
+							<h1 className="details-header">{t("Full address")}:</h1>
 							<h1 className="details-text">
-								Area: {orderDetails?.addressInfo?.state}
+								{t("Area")}: {orderDetails?.addressInfo?.state}
 							</h1>
 							<h1 className="details-text">
-								street: {orderDetails?.addressInfo?.street}
+								{t("street")}: {orderDetails?.addressInfo?.street}
 							</h1>
 							<h1 className="details-text">
-								House: {orderDetails?.addressInfo?.houseNo}
+								{t("House")}: {orderDetails?.addressInfo?.houseNo}
 							</h1>
 							<h1 className="details-text">
-								Block: {orderDetails?.addressInfo?.block}
+								{t("Block")}: {orderDetails?.addressInfo?.block}
 							</h1>
 							{orderDetails?.addressInfo?.apartmentNo !== "" &&
 								orderDetails?.addressInfo?.apartmentNo !== "undefined" && (
 									<h1 className="details-text">
-										Apartment: {orderDetails?.addressInfo?.apartmentNo}
+										{t("Apartment")}: {orderDetails?.addressInfo?.apartmentNo}
 									</h1>
 								)}
 
 							{orderDetails?.addressInfo?.officeNo !== "" &&
 								orderDetails?.addressInfo?.officeNo !== "undefined" && (
 									<h1 className="details-text">
-										Office: {orderDetails?.addressInfo?.officeNo}
+										{t("Office")}: {orderDetails?.addressInfo?.officeNo}
 									</h1>
 								)}
 							{orderDetails?.addressInfo?.floorNo !== "" &&
 								orderDetails?.addressInfo?.floorNo !== "undefined" && (
 									<h1 className="details-text">
-										Floor: {orderDetails?.addressInfo?.floorNo}
+										{t("Floor")}: {orderDetails?.addressInfo?.floorNo}
 									</h1>
 								)}
 						</div>
@@ -517,30 +519,30 @@ const NewPaymentFailure = () => {
 								borderLeft: "1px solid #C4C4C4",
 								paddingLeft: 20,
 							}}>
-							<h1 className="details-header">Car details:</h1>
+							<h1 className="details-header">{t("Car details")}:</h1>
 							<h1 className="details-text">
-								Color: {orderDetails?.pickupCarrierInfo?.carMake}
+								{t("Brand")}: {orderDetails?.pickupCarrierInfo?.carBrand}
 							</h1>
 							<h1 className="details-text">
-								Color: {orderDetails?.pickupCarrierInfo?.plateColor}
+								{t("Color")}: {orderDetails?.pickupCarrierInfo?.carColor}
 							</h1>
 							<h1 className="details-text">
-								Plate Number: {orderDetails?.pickupCarrierInfo?.carType}
+								{t("Plate Number")}: {orderDetails?.pickupCarrierInfo?.carPlate}
 							</h1>
 						</div>
 					)}
 				</div>
 
-				<p className="details-order">Order Details</p>
+				<p className="details-order">{t("Order Details")}</p>
 				{orderDetails?.productInfo[0]?.productName !== null && (
 					<table className="details-table">
 						<thead className="details-table-head">
 							<tr>
-								<th className="details-head">Item</th>
-								<th className="details-head">QTY</th>
-								<th className="details-head">Details</th>
-								<th className="details-head">Special instruction</th>
-								<th className="details-head">Amount</th>
+								<th className="details-head">{t("Item")}</th>
+								<th className="details-head">{t("QTY")}</th>
+								<th className="details-head">{t("Details")}</th>
+								<th className="details-head">{t("Special instruction")}</th>
+								<th className="details-head">{t("Amount")}</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -575,6 +577,7 @@ const NewPaymentFailure = () => {
 									<td className="details-row">
 										{product?.variantsDetails?.map((variant, index) => (
 											<p
+												key={index}
 												className="cart-name"
 												style={{ padding: 0, margin: 0 }}>
 												{variant?.name}{" "}
@@ -583,7 +586,7 @@ const NewPaymentFailure = () => {
 										))}
 									</td>
 									<td className="details-row">{product?.specialInstructions}</td>
-									<td className="details-row">{product?.price} KD</td>
+									<td className="details-row">{product?.price} {t("KD")}</td>
 								</tr>
 							))}
 						</tbody>
@@ -609,8 +612,8 @@ const NewPaymentFailure = () => {
 							borderBottom: "1px solid #979797",
 							width: "100%",
 						}}>
-						<p className="details-prices">Subtotal</p>
-						<p className="details-prices">{orderDetails?.orderTotal} KD</p>
+						<p className="details-prices">{t("Subtotal")}</p>
+						<p className="details-prices">{orderDetails?.orderTotal} {t("KD")}</p>
 					</div>
 
 					{orderDetails?.shippingCharge ? (
@@ -623,8 +626,8 @@ const NewPaymentFailure = () => {
 								borderBottom: "1px solid #979797",
 								width: "100%",
 							}}>
-							<p className="details-prices">Delivery fees</p>
-							<p className="details-prices">{orderDetails?.shippingCharge} KD</p>
+							<p className="details-prices">{t("Delivery fees")}</p>
+							<p className="details-prices">{orderDetails?.shippingCharge} {t("KD")}</p>
 						</div>
 					) : (
 						""
@@ -640,12 +643,12 @@ const NewPaymentFailure = () => {
 								borderBottom: "1px solid #979797",
 								width: "100%",
 							}}>
-							<p className="details-prices">Discount</p>
+							<p className="details-prices">{t("Discount")}</p>
 							{orderDetails?.discountType === "amount" && (
 								<p
 									className="details-prices"
 									style={{ color: "green" }}>
-									-{orderDetails?.discountValue} KD
+									-{orderDetails?.discountValue} {t("KD")}
 								</p>
 							)}
 							{orderDetails?.discountType === "percentage" && (
@@ -667,8 +670,8 @@ const NewPaymentFailure = () => {
 							justifyContent: "space-between",
 							width: "100%",
 						}}>
-						<p className="details-prices">Total</p>
-						<p className="details-prices">{orderDetails?.grandTotal} KD</p>
+						<p className="details-prices">{t("Total")}</p>
+						<p className="details-prices">{orderDetails?.grandTotal} {t("KD")}</p>
 					</div>
 				</div>
 
@@ -681,7 +684,7 @@ const NewPaymentFailure = () => {
 						height: "20px",
 						marginRight: "15px",
 					}}>
-					<p className="payment-powered-mobile">Powered by</p>
+					<p className="payment-powered-mobile">{t("Powered by")}</p>
 					<EcomLogoSvgMobile />
 				</div>
 				<div className="buttons-container">
@@ -689,20 +692,20 @@ const NewPaymentFailure = () => {
 						<button
 							className="retry-btn"
 							onClick={() => router.push("/my-cart?retry=true")}>
-							RETRY PAYMENT
+							{t("RETRY PAYMENT")}
 						</button>
 					) : (
 						<button
 							className="retry-btn"
 							onClick={() => window.open(orderDetails?.link, "_self")}>
-							RETRY PAYMENT
+							{t("RETRY PAYMENT")}
 						</button>
 					)}
 					{type === "order" && (
 						<button
 							className="back-btn"
 							onClick={() => router.push("/")}>
-							GO BACK
+							{t("GO BACK")}
 						</button>
 					)}
 				</div>

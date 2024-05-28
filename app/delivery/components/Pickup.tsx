@@ -45,9 +45,9 @@ export const Pickup: React.FC<PickupProps> = ({
 }) => {
 	const { t } = useTranslation();
 	const [totalPrice, setTotalPrice] = useState(0);
-	const [carType, setCarType] = useState("");
-	const [plateColor, setPlateColor] = useState("");
-	const [carMake, setCarMake] = useState("");
+	const [carBrand, setCarBrand] = useState("");
+	const [carColor, setCarColor] = useState("");
+	const [carPlateNumber, setCarPlateNumber] = useState("");
 	const [isGiftEdit, setIsGift] = useState(isGift);
 	const [giftEdit, setGiftEdit] = useState(gift);
 	const [showPayment, setShowPayment] = useState(
@@ -226,24 +226,24 @@ export const Pickup: React.FC<PickupProps> = ({
 			<div className="car-container">
 				<input
 					type="text"
-					placeholder={t("Make")}
+					placeholder={t("Car Plate Number")}
 					className="car-input"
-					value={carMake}
-					onChange={(e) => setCarMake(e.target.value)}
+					value={carPlateNumber}
+					onChange={(e) => setCarPlateNumber(e.target.value)}
 				/>
 				<input
 					type="text"
-					placeholder={t("Color")}
+					placeholder={t("Car Color")}
 					className="car-input"
-					value={plateColor}
-					onChange={(e) => setPlateColor(e.target.value)}
+					value={carColor}
+					onChange={(e) => setCarColor(e.target.value)}
 				/>
 				<input
 					type="text"
-					placeholder={t("Plate Number")}
+					placeholder={t("Car Brand")}
 					className="car-input"
-					value={carType}
-					onChange={(e) => setCarType(e.target.value)}
+					value={carBrand}
+					onChange={(e) => setCarBrand(e.target.value)}
 				/>
 			</div>
 
@@ -356,9 +356,9 @@ export const Pickup: React.FC<PickupProps> = ({
 					onClose={handleShowPayment}
 					totalPrice={totalPrice}
 					cartData={cartData}
-					carType={carType}
-					plateColor={plateColor}
-					carMake={carMake}
+					carBrand={carBrand}
+					plateNumber={carPlateNumber}
+					carColor={carColor}
 					deliveryFees={0}
 					addressId=""
 					promoId={promoId}

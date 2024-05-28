@@ -23,9 +23,9 @@ interface PaymentMenuProps {
 	onClose: () => void;
 	totalPrice: number;
 	cartData: any;
-	carType: string;
-	plateColor: string;
-	carMake: string;
+	carBrand: string;
+	plateNumber: string;
+	carColor: string;
 	deliveryFees: number;
 	addressId: string;
 	promoId: string;
@@ -39,9 +39,9 @@ export const PaymentMenu: React.FC<PaymentMenuProps> = ({
 	onClose,
 	totalPrice,
 	cartData,
-	carType,
-	plateColor,
-	carMake,
+	carBrand,
+	plateNumber,
+	carColor,
 	deliveryFees,
 	addressId,
 	promoId,
@@ -90,9 +90,9 @@ export const PaymentMenu: React.FC<PaymentMenuProps> = ({
 					isGift,
 					gift,
 					specialMarks,
-					carMake,
-					carType,
-					plateColor
+					carColor,
+					carBrand,
+					plateNumber
 				);
 
 				window.open(resPay.paymentLink, "_self");
@@ -108,11 +108,11 @@ export const PaymentMenu: React.FC<PaymentMenuProps> = ({
 		<div className="order-layout">
 			<div className="order-container">
 				<div
-					className="absolute top-[-15px] right-[-10px] cursor-pointer"
+					className={`absolute top-[-15px] ${t("local") === "ar" ? "left-[-10px]" :"right-[-10px]"} cursor-pointer`}
 					onClick={onClose}>
 					<ExitSvg />
 				</div>
-				<div className="flex items-center gap-2.5 mb-[7px] ml-[30px]">
+				<div className={`flex items-center gap-2.5 mb-[7px] ${t("local") === "ar" ? "mr-[30px]" :"ml-[30px]"}`}>
 					<p className="order-powered">{t("Powered by")}</p>
 					<EcomLogoSvg />
 				</div>
@@ -152,14 +152,14 @@ export const PaymentMenu: React.FC<PaymentMenuProps> = ({
 									<div className="order-details-dropdown-con">
 										<p className="order-details-dropdown-text">{t("Subtotal")}</p>
 										<p className="order-details-dropdown-text">
-											{t("KWD")} {Math.floor(totalPrice * 1000) / 1000}
+											{Math.floor(totalPrice * 1000) / 1000} {t("KD")}
 										</p>
 									</div>
 									{deliveryFees !== 0 && (
 										<div className="order-details-dropdown-con">
 											<p className="order-details-dropdown-text">{t("Delivery fees")}</p>
 											<p className="order-details-dropdown-text">
-												{t("KWD")} {deliveryFees}
+												{deliveryFees} {t("KD")}
 											</p>
 										</div>
 									)}
@@ -174,7 +174,7 @@ export const PaymentMenu: React.FC<PaymentMenuProps> = ({
 									<div className="order-details-dropdown-con">
 										<p className="order-details-dropdown-text">{t("Total")}</p>
 										<p className="order-details-dropdown-text">
-											{t("KWD")} {Math.floor(totalPrice * 1000) / 1000 + deliveryFees}
+											{Math.floor(totalPrice * 1000) / 1000 + deliveryFees} {t("KD")}
 										</p>
 									</div>
 								</div>

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 import { getCountriesApi, getCitiesApi } from "../payment.container";
 
@@ -35,6 +36,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ selectedInstall }) => {
 	const { logo, storeName } = useSelector(
 		(state: RootState) => state.StoreReducer.customerDetails
 	);
+	const { t } = useTranslation();
 	const [openAddress, setOpenAddress] = useState(false);
 	const [openOrder, setOpenOrder] = useState(false);
 	const [customerDetails, setCustomerDetails] =
@@ -82,7 +84,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ selectedInstall }) => {
 			{!openAddress ? (
 				<div className="w-full h-full pt-[30px] pb-[50px]">
 					<div className="flex justify-between items-center py-0 px-[15px] my-0 mx-auto mb-[68px] max-w-[667px]">
-						<p className="payment-bill-no">Bill {customerDetails?.billNumber}</p>
+						<p className="payment-bill-no">{t("Bill")} {customerDetails?.billNumber}</p>
 						<p className="payment-bill-no">
 							{moment(parseInt(customerDetails?.orderPlacedAt)).format("DD/MM/YYYY")}
 						</p>
@@ -95,9 +97,9 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ selectedInstall }) => {
 							className="w-[118px] h-[118px] rounded-full"
 						/>
 						<p className="payment-store-name">{storeName}</p>
-						<p className="payment-total-price">KD{customerDetails?.orderTotal}</p>
+						<p className="payment-total-price">{customerDetails?.orderTotal} {t("KD")}</p>
 						<p className="payment-date">
-							Due on{" "}
+							{t("Due on")}{" "}
 							{moment(parseInt(customerDetails?.orderPlacedAt)).format(
 								"dddd MMM DD, YYYY"
 							)}
@@ -106,20 +108,20 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ selectedInstall }) => {
 
 					<div className="max-w-[525px] w-[95%] my-0 mx-auto mb-[82px] flex flex-col gap-5">
 						<div className="flex items-center justify-between pb-3.5 border-b border-[#979797] w-full">
-							<p className="payment-prices">Subtotal</p>
-							<p className="payment-prices">KD {customerDetails?.orderTotal}</p>
+							<p className="payment-prices">{t("Subtotal")}</p>
+							<p className="payment-prices">{customerDetails?.orderTotal} {t("KD")}</p>
 						</div>
 
 						{selectedInstall?.needsDelivery && (
 							<div className="flex items-center justify-between pb-3.5 w-full">
-								<p className="payment-prices">Delivery fees</p>
-								<p className="payment-prices">KD {customerDetails?.shippingCharge}</p>
+								<p className="payment-prices">{t("Delivery fees")}</p>
+								<p className="payment-prices">{customerDetails?.shippingCharge} {t("KD")}</p>
 							</div>
 						)}
 
 						{customerDetails?.discountValue && (
 							<div className="flex items-center justify-between pb-3.5 border-b border-[#979797] w-full">
-								<p className="payment-prices">Discount</p>
+								<p className="payment-prices">{t("Discount")}</p>
 								<p
 									className="payment-prices"
 									style={{ color: "#5FC123" }}>
@@ -130,9 +132,9 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ selectedInstall }) => {
 						)}
 
 						<div className="flex items-center justify-between w-full">
-							<p className="payment-prices">Total</p>
+							<p className="payment-prices">{t("Total")}</p>
 							<p className="payment-prices">
-								KD {customerDetails?.orderTotal + customerDetails?.shippingCharge}
+								{customerDetails?.orderTotal + customerDetails?.shippingCharge} {t("KD")}
 							</p>
 						</div>
 					</div>
@@ -141,7 +143,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ selectedInstall }) => {
 						<p
 							className="payment-bill-no"
 							style={{ fontSize: 16, fontWeight: 400 }}>
-							Billed to name
+							{t("Billed to name")}
 						</p>
 						<p
 							className="payment-bill-no"
@@ -159,13 +161,13 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ selectedInstall }) => {
 						<p
 							className="payment-button"
 							onClick={handleOpenAddress}>
-							Add Address
+							{t("Add Address")}
 						</p>
 					) : (
 						<p
 							className="payment-button"
 							onClick={handleOpenOrder}>
-							Pay {customerDetails?.orderTotal + customerDetails?.shippingCharge}
+							{t("Pay")} {customerDetails?.orderTotal + customerDetails?.shippingCharge}
 						</p>
 					)}
 
@@ -175,8 +177,9 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ selectedInstall }) => {
 							alignItems: "center",
 							justifyContent: "center",
 							gap: 4,
+							paddingBottom: "10px",
 						}}>
-						<p className="payment-powered">Powered by</p>
+						<p className="payment-powered">{t("Powered by")}</p>
 						<EcomLogoSvg />
 					</div>
 				</div>
