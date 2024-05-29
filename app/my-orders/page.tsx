@@ -70,7 +70,7 @@ const NewMyOrder = () => {
 
 				<div className={`mt-10 ${filteredOrders.length === 0 && "hidden"}`}>
 					{filteredOrders?.map((item: any, index: number) => (
-						<div
+						item?.status === "paid" && <div
 							className={`flex items-center justify-between mb-[10px] pb-[10px] border-b ${
 								filteredOrders.length - 1 !== index && "border-b-[#C4C4C4]"
 							}`}>
