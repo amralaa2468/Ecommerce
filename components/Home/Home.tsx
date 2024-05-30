@@ -370,7 +370,7 @@ const Theme1 = () => {
               <CartSvg />
               <p className="new-theme-text">{t("Delivery to")}</p>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 48.17 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 58.17 }}>
               <p className="new-theme-text">{t("Choose locations")}</p>
               <Link
                 href={"/new-delivery?tab=delivery"}
@@ -394,7 +394,17 @@ const Theme1 = () => {
               <p className="new-theme-text">{t("Earliest Arrival")}</p>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 62 }}>
-              <p className="new-theme-text">4 Oct, 8:00 AM</p>
+              <p className="new-theme-text">
+              {new Date().toLocaleDateString('en-US', {
+                day: 'numeric',
+                month: 'short',
+              })}
+              , {new Date().toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true,
+              })}
+              </p>
               <p
                 className="new-theme-edit"
                 style={{ color: primaryThemeColourCode }}

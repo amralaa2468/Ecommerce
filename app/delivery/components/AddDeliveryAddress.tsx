@@ -67,6 +67,7 @@ export const AddDeliveryAddress: React.FC<AddDeliveryAddressProps> = ({
 	const { _id, primaryThemeColourCode, enableMashkoor, secondrythemeColourCode } = useSelector(
 		(state: RootState) => state.StoreReducer.customerDetails
 	);
+	
 	const [data, setData] = useState({
 		_id: "",
 		stateId: "",
@@ -272,7 +273,8 @@ export const AddDeliveryAddress: React.FC<AddDeliveryAddressProps> = ({
 				}}>
 				<select
 					className="address-form"
-					onChange={handleCities}>
+					onChange={handleCities}
+					style={{padding: "25px 24px"}}>
 					{details?.addressDetails.city !== null ||
 					details?.addressDetails.city !== '' ? (
 						<option value={details?.addressDetails.city}>
@@ -295,6 +297,7 @@ export const AddDeliveryAddress: React.FC<AddDeliveryAddressProps> = ({
 				<select
 					className="address-form"
 					name="stateId"
+					style={{padding: "25px 24px"}}
 					onChange={handleSelectChange}>
 					{details?.addressDetails.state !== null ||
 					details?.addressDetails.state !== '' ? (
